@@ -1,0 +1,692 @@
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1f1f1f;
+  --bg-elevated: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #666666;
+  --accent-primary: #00d4aa;
+  --accent-secondary: #00a888;
+  --accent-glow: rgba(0, 212, 170, 0.15);
+  --ai-color: #7c5cff;
+  --ai-glow: rgba(124, 92, 255, 0.2);
+  --status-danger: #ff4757;
+  --status-warning: #ffc107;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  height: 100%;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+.text-muted { color: var(--text-secondary); }
+
+/* ── Screens ── */
+.screen {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.screen-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 24px;
+}
+.screen-content.centered {
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  text-align: center;
+}
+
+/* ── Brand ── */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ── Join Form ── */
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 32px;
+}
+
+.input {
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input:focus {
+  border-color: var(--accent-primary);
+}
+.input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+.btn-primary:active {
+  background: var(--accent-secondary);
+  transform: scale(0.98);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.consent-text {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  max-width: 260px;
+  margin-top: 40px;
+}
+
+/* ── Pulse dot ── */
+.pulse-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  animation: pulse 2s ease-in-out infinite;
+  margin-top: 24px;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ── Epoch Intro ── */
+.epoch-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-primary);
+}
+.epoch-title {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+/* ── Game Screen ── */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.8rem;
+}
+.game-score .mono {
+  color: var(--accent-primary);
+  font-size: 1rem;
+}
+
+.game-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.game-footer {
+  padding: 12px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ai-model-label {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+.ai-bar {
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.ai-bar-fill {
+  height: 100%;
+  background: var(--ai-color);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 1s ease;
+}
+
+/* ── Game: Pattern Pulse ── */
+.pattern-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 20px;
+}
+.pattern-instruction {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+.pattern-display {
+  display: flex;
+  gap: 16px;
+}
+.pattern-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  opacity: 0.3;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.pattern-circle.flash {
+  opacity: 1;
+  transform: scale(1.2);
+  box-shadow: 0 0 20px currentColor;
+}
+.pattern-buttons {
+  display: flex;
+  gap: 12px;
+}
+.pattern-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.pattern-btn:active {
+  transform: scale(0.9);
+}
+.pattern-btn.correct {
+  box-shadow: 0 0 20px var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+.pattern-btn.wrong {
+  box-shadow: 0 0 20px var(--status-danger);
+  border-color: var(--status-danger);
+}
+
+/* Pattern Pulse colors */
+.color-0 { background: #4a90d9; color: #4a90d9; }
+.color-1 { background: #50c878; color: #50c878; }
+.color-2 { background: #e74c3c; color: #e74c3c; }
+.color-3 { background: #f1c40f; color: #f1c40f; }
+
+/* ── Game: Reflex Gate ── */
+.reflex-container {
+  flex: 1;
+  position: relative;
+  touch-action: none;
+}
+.reflex-instruction {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  pointer-events: none;
+  z-index: 2;
+}
+.reflex-timer {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--text-tertiary);
+  pointer-events: none;
+  z-index: 2;
+}
+.reflex-shape {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.1s;
+  animation: shapeAppear 0.2s ease-out;
+}
+@keyframes shapeAppear {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.reflex-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+.reflex-square {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  background: var(--status-danger);
+}
+
+/* ── Game: Sentiment Scan ── */
+.sentiment-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px;
+}
+.sentiment-instruction {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+.sentiment-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  background: var(--bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.sentiment-buttons {
+  display: flex;
+  gap: 16px;
+}
+.sentiment-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 80px;
+}
+.sentiment-btn:active {
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
+}
+.sentiment-emoji {
+  font-size: 1.8rem;
+}
+.sentiment-progress {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* ── Game: Complete the Thought ── */
+.thought-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+.thought-prompt {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.6;
+  max-width: 280px;
+}
+.thought-input {
+  width: 100%;
+  max-width: 300px;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  resize: none;
+  height: 80px;
+  outline: none;
+}
+.thought-input:focus {
+  border-color: var(--accent-primary);
+}
+.thought-counter {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* ── Client Task Scenario Card ── */
+.scenario-card {
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 320px;
+  text-align: left;
+}
+
+/* ── Results ── */
+.results-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+}
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.9rem;
+}
+.result-label { color: var(--text-secondary); }
+.result-value { font-family: 'JetBrains Mono', monospace; }
+.result-value.ai { color: var(--ai-color); }
+
+/* ── Death Screen ── */
+#screen-graduated .screen-content {
+  background: var(--bg-primary);
+}
+
+.death-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 1s ease;
+  position: absolute;
+  inset: 0;
+  padding: 48px 24px;
+}
+.death-phase.visible { opacity: 1; }
+
+.death-title {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
+.death-metrics {
+  width: 100%;
+  max-width: 260px;
+  text-align: left;
+}
+.death-metrics h3 {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+.death-metric-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 0.9rem;
+}
+.death-metric-row .value {
+  font-family: 'JetBrains Mono', monospace;
+}
+.death-separator {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 12px 0;
+}
+
+.certified-badge {
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.graduated-box {
+  border: 2px solid var(--accent-primary);
+  padding: 24px 40px;
+  text-align: center;
+}
+.graduated-box.graduated-red {
+  border-color: var(--status-danger);
+  animation: redFlash 0.8s ease-out;
+}
+.graduated-box.graduated-red .graduated-label {
+  color: var(--status-danger);
+}
+@keyframes redFlash {
+  0% { background: rgba(255, 71, 87, 0.25); }
+  100% { background: transparent; }
+}
+.graduated-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-primary);
+  margin-bottom: 8px;
+}
+.graduated-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.avatar-card {
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.avatar-silhouette {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--accent-primary);
+}
+.avatar-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+}
+.avatar-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.free-text {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-top: 16px;
+}
+
+/* ── Offboarding card ── */
+.offboard-card {
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 320px;
+  text-align: center;
+}
+.offboard-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  margin-bottom: 12px;
+}
+.offboard-body {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.offboard-body strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.data-value-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--accent-primary);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 320px;
+  text-align: center;
+  margin-top: 16px;
+}
+.data-value-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+.data-value-amount {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 8px 0 4px;
+}
+.data-value-sub {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+.data-value-note {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* ── Survivor ── */
+.status-badge {
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+.survivor-message {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  text-align: center;
+  line-height: 1.8;
+}
+.big-text {
+  font-size: 2rem;
+  color: var(--accent-primary);
+}
+
+/* ── Reconnection overlay ── */
+.reconnect-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  transition: opacity 0.4s ease;
+}
+.reconnect-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.reconnect-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+}

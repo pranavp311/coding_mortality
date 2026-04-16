@@ -1,0 +1,309 @@
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1f1f1f;
+  --bg-elevated: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #666666;
+  --accent-primary: #00d4aa;
+  --accent-secondary: #00a888;
+  --accent-glow: rgba(0, 212, 170, 0.15);
+  --ai-color: #7c5cff;
+  --ai-glow: rgba(124, 92, 255, 0.2);
+  --status-danger: #ff4757;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+.text-muted { color: var(--text-secondary); }
+
+/* Screens */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── LOBBY ── */
+.lobby-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+
+.brand { text-align: center; }
+.logo {
+  font-size: 3.5rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--text-primary);
+}
+.tagline {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.qr-container img {
+  width: 280px;
+  height: 280px;
+  border-radius: 12px;
+}
+.qr-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.connection-status {
+  text-align: center;
+}
+.dot-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.dot-row .dot-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  transition: background 0.3s ease;
+}
+.dot-row .dot-indicator.filled {
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+.connection-count {
+  font-size: 1.2rem;
+}
+.connection-count .mono {
+  font-size: 1.4rem;
+  color: var(--accent-primary);
+}
+
+/* ── POPULATION ── */
+.pop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.pop-header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.logo-sm {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+}
+.pop-count {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.pop-count .mono {
+  color: var(--accent-primary);
+}
+
+#population-canvas {
+  flex: 1;
+  width: 100%;
+}
+
+.pop-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+#progress-label {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* ── GAME STATUS ── */
+.game-status-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.game-title {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.score-comparison {
+  display: flex;
+  gap: 64px;
+  align-items: center;
+}
+.score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.score-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+}
+.score-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 3rem;
+  font-weight: 600;
+}
+.ai-score {
+  color: var(--ai-color);
+}
+.score-divider {
+  width: 1px;
+  height: 80px;
+  background: rgba(255,255,255,0.1);
+}
+
+.ai-learning {
+  width: 160px;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.ai-learning-fill {
+  height: 100%;
+  background: var(--ai-color);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 1s ease;
+}
+
+.game-player-count {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ── END ── */
+.end-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.end-message {
+  text-align: center;
+  margin-top: 32px;
+  line-height: 2;
+}
+
+/* ── DEBUG ── */
+.debug-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background: rgba(10,10,10,0.95);
+  border-left: 1px solid var(--accent-primary);
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 100;
+  font-size: 0.75rem;
+}
+.debug-overlay.hidden { display: none; }
+.debug-overlay h3 {
+  color: var(--accent-primary);
+  margin-bottom: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.debug-player {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+}
+.debug-player .name { color: var(--accent-primary); }
+.debug-player .score { color: var(--text-secondary); }
+.debug-player.disconnected { opacity: 0.3; }
+.debug-player.graduated { color: var(--status-danger); }
+
+/* ── OPERATOR HUD ── */
+.operator-hud {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.8);
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-tertiary);
+  z-index: 90;
+}
+.hud-hint { opacity: 0.5; }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

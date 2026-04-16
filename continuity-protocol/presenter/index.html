@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTINUUM — Presenter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Lobby Screen -->
+  <div id="screen-lobby" class="screen active">
+    <div class="lobby-container">
+      <div class="brand">
+        <h1 class="logo">CONTINUUM</h1>
+        <p class="tagline">Your Legacy, Optimized</p>
+      </div>
+      <div class="qr-container">
+        <img id="qr-code" alt="QR Code">
+        <p class="qr-label">Scan to begin assessment</p>
+      </div>
+      <div class="connection-status">
+        <div id="dot-row" class="dot-row"></div>
+        <p class="connection-count">
+          <span id="connected-count" class="mono">0</span>
+          <span class="text-muted"> connected</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Population Screen -->
+  <div id="screen-population" class="screen">
+    <div class="pop-header">
+      <div class="pop-header-left">
+        <span class="logo-sm">CONTINUUM</span>
+        <span class="pop-count">Population: <span id="pop-active" class="mono">0</span> active</span>
+      </div>
+      <div class="pop-header-right">
+        <span id="pop-epoch" class="mono"></span>
+      </div>
+    </div>
+    <canvas id="population-canvas"></canvas>
+  </div>
+
+  <!-- Game Status Overlay -->
+  <div id="screen-game" class="screen">
+    <div class="pop-header">
+      <div class="pop-header-left">
+        <span class="logo-sm">CONTINUUM</span>
+      </div>
+      <div class="pop-header-right">
+        <span id="game-epoch" class="mono"></span>
+      </div>
+    </div>
+    <div class="game-status-center">
+      <h2 id="game-name" class="game-title"></h2>
+      <div class="score-comparison">
+        <div class="score-block">
+          <span class="score-label">Average Human Score</span>
+          <span id="game-human-score" class="score-display">---</span>
+        </div>
+        <div class="score-divider"></div>
+        <div class="score-block ai">
+          <span class="score-label">AI Model <span id="ai-version" class="mono">v1.0</span></span>
+          <span id="game-ai-score" class="score-display ai-score">---</span>
+          <div class="ai-learning">
+            <div id="ai-learning-bar" class="ai-learning-fill"></div>
+          </div>
+          <span id="ai-learning-label" class="score-label mono">CALIBRATING</span>
+        </div>
+      </div>
+      <p class="game-player-count">
+        <span id="game-player-count" class="mono">0</span> employees remaining in assessment
+      </p>
+    </div>
+  </div>
+
+  <!-- End Screen -->
+  <div id="screen-end" class="screen">
+    <div class="end-container">
+      <h1 class="logo">CONTINUUM</h1>
+      <p class="tagline">Assessment Complete</p>
+      <div class="end-message">
+        <p>Thank you for your participation.</p>
+        <p class="text-muted">Your contributions will continue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Debug Overlay -->
+  <div id="debug-overlay" class="debug-overlay hidden">
+    <h3>Debug — Player States</h3>
+    <div id="debug-players"></div>
+    <p>Phase: <span id="debug-phase" class="mono"></span></p>
+  </div>
+
+  <!-- Operator HUD -->
+  <div id="operator-hud" class="operator-hud">
+    <span id="hud-phase" class="mono"></span>
+    <span class="hud-hint">SPACE: advance | G: graduate | R: reset | D: debug | F: demo | SHIFT+F: fullscreen</span>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/shared/constants.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

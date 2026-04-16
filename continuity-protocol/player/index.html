@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CONTINUUM — Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Join Screen -->
+  <div id="screen-join" class="screen active">
+    <div class="screen-content centered">
+      <h1 class="logo">CONTINUUM</h1>
+      <div class="join-form">
+        <p class="subtitle">Welcome to your<br>Performance Evaluation</p>
+        <input type="text" id="name-input" class="input" placeholder="Enter your name" maxlength="20" autocomplete="off">
+        <button id="join-btn" class="btn-primary">Begin Assessment</button>
+      </div>
+      <p class="consent-text">By continuing, you consent to performance data collection per the Mortality Coders Consulting employee handbook §4.3</p>
+    </div>
+  </div>
+
+  <!-- Waiting Screen -->
+  <div id="screen-waiting" class="screen">
+    <div class="screen-content centered">
+      <h1 class="logo">CONTINUUM</h1>
+      <p class="subtitle">Please wait.</p>
+      <p class="text-muted">Assessment begins shortly.</p>
+      <div class="pulse-dot"></div>
+    </div>
+  </div>
+
+  <!-- Epoch Intro Screen -->
+  <div id="screen-epoch-intro" class="screen">
+    <div class="screen-content centered">
+      <p class="epoch-label mono" id="intro-epoch-label">EPOCH 1</p>
+      <h2 class="epoch-title" id="intro-epoch-title">Baseline Assessment</h2>
+      <p class="text-muted" id="intro-epoch-desc">Establishing your performance benchmarks.</p>
+      <div class="pulse-dot"></div>
+    </div>
+  </div>
+
+  <!-- Game Screen (container for all games) -->
+  <div id="screen-game" class="screen">
+    <div class="game-header">
+      <span id="game-epoch-label" class="mono">EPOCH 1</span>
+      <span class="game-score">Score: <span id="game-score" class="mono">---</span></span>
+    </div>
+    <div id="game-area" class="game-area">
+      <!-- Games render here -->
+    </div>
+    <div class="game-footer">
+      <span class="ai-model-label">Your Model: <span id="ai-status" class="mono">Calibrating</span></span>
+      <div class="ai-bar">
+        <div id="ai-bar-fill" class="ai-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Epoch Results Screen -->
+  <div id="screen-epoch-results" class="screen">
+    <div class="screen-content centered">
+      <p class="epoch-label mono" id="results-epoch-label">EPOCH 1 COMPLETE</p>
+      <div class="results-summary" id="results-summary"></div>
+      <p class="text-muted">Preparing next assessment phase...</p>
+    </div>
+  </div>
+
+  <!-- Graduated (Death) Screen -->
+  <div id="screen-graduated" class="screen">
+    <div class="screen-content centered" id="death-content">
+      <!-- Phases render via JS -->
+    </div>
+  </div>
+
+  <!-- Survivor Screen -->
+  <div id="screen-survivor" class="screen">
+    <div class="screen-content centered">
+      <h1 class="logo">CONTINUUM</h1>
+      <p class="subtitle">Assessment Complete</p>
+      <div class="status-badge">STATUS: ACTIVE</div>
+      <div class="survivor-message">
+        <p>Your next assessment<br>is scheduled for:</p>
+        <p class="mono big-text">Q3 2051</p>
+        <p class="text-muted">Continue to optimize.<br>Continue to perform.<br>Continue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reconnection overlay -->
+  <div id="reconnect-overlay" class="reconnect-overlay hidden">
+    <div class="reconnect-content">
+      <div class="pulse-dot"></div>
+      <p>Connection lost</p>
+      <p class="text-muted">Reconnecting...</p>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/shared/constants.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

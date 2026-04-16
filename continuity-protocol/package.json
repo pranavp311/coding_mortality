@@ -1,0 +1,15 @@
+{
+  "name": "continuity-protocol",
+  "version": "1.0.0",
+  "description": "Interactive performance piece — Continuity Protocol",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "qrcode": "^1.5.3",
+    "socket.io": "^4.7.4"
+  }
+}
