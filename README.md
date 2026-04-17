@@ -16,6 +16,11 @@ An interactive performance piece exploring algorithmic obsolescence in the workp
 - **Player Client:** Mobile-first responsive HTML/JS
 - **Tunnel:** Cloudflare (via `start.sh`)
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+)
+- [Cloudflare Tunnel (`cloudflared`)](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/) — for exposing the server to mobile devices on the same network
+
 ## Setup
 
 ```bash
