@@ -184,11 +184,12 @@ io.on('connection', (socket) => {
   // Presenter joins
   socket.on('presenter:join', () => {
     socket.join('presenter');
-    // Send full state
-    socket.emit(EVENTS.PHASE_CHANGE, {
+    // Auto-reset to lobby on presenter load (single-viewer mode)
+    gameState.reset();
+    io.emit(EVENTS.PHASE_CHANGE, {
       phase: gameState.phase,
       epoch: gameState.getCurrentEpoch(),
-      game: gameState.getCurrentGame(),
+      game: null,
     });
     emitPopulation();
   });
