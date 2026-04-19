@@ -22,11 +22,17 @@ function showScreen(name) {
 }
 
 // ── QR Code ──
-fetch('/api/qr')
-  .then(r => r.json())
-  .then(data => {
-    document.getElementById('qr-code').src = data.qr;
-  });
+function loadQR(retries = 5) {
+  fetch('/api/qr')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('qr-code').src = data.qr;
+    })
+    .catch(() => {
+      if (retries > 0) setTimeout(() => loadQR(retries - 1), 2000);
+    });
+}
+loadQR();
 
 // ── Lobby dots ──
 function updateLobbyDots(count) {
